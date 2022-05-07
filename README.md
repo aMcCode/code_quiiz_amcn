@@ -1,4 +1,4 @@
-# code_quiiz_amcn
+# code_quiz_amcn
 
 AS A coding boot camp student<br />
 I WANT to take a timed quiz on JavaScript fundamentals that stores high scores<br />
@@ -15,6 +15,5 @@ THEN time is subtracted from the clock
 THEN the game is over
 * WHEN the game is over<br />
 THEN I can save my initials and score
-<br />
-<br />
-![Animated ReadMe](assets/images/animated_example.gif?raw=true "")
+#
+![Alt text](assets/images/animated_example.gif?raw=true "Animated Readme")

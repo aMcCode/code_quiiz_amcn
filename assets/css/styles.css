@@ -1,0 +1,92 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* :root {
+    --primary-color: hsla(11, 70%, 38%, 1);
+    --secondary-color: hsla(7, 97%, 86%, 1);
+    --tertiary-color: #39a6b2;
+    --filler-color:hsla(60, 60%, 99%, 1);
+    --olive: hsla(62, 59%, 30%, 1);
+} */
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;   
+    overflow: hidden;  
+    margin: 0px; 
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10vh 10vh 15vh 10vh;
+}
+
+#landing-main {
+    margin: auto;
+    width: 55%;
+    padding: 0 0 15vh;
+    text-align: center;
+}
+
+#question-main {
+    margin: auto;
+    width: 55%;
+    padding: 0 0 15vh;
+    text-align: center;
+}
+
+#feedback-main {
+    margin: auto;
+    width: 55%;
+    padding: 0 0 15vh;
+    text-align: center;
+}
+
+#highscores-main {
+    margin: auto;
+    width: 55%;
+    padding: 0 0 15vh;
+    text-align: center;
+}
+
+
+main h1, p {
+    padding-bottom: 3vh;
+}
+
+#question-feedback {
+    float: left;
+    margin-top: 3vh;
+}
+
+form {
+    float: left;
+    margin-top: 3vh;
+}
+
+label {
+    display: inline-block;
+    padding-right: 10px;
+    width: 40vh;
+    text-align: right;
+}
+
+
+
+#high-score-button {
+    float: left;
+    margin: 2vh 0 0 7vh;
+}
+
+
+
+
+
