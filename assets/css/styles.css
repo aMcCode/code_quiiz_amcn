@@ -29,25 +29,65 @@ header {
     padding: 10vh 10vh 15vh 10vh;
 }
 
-#landing-main {
+#main {
     margin: auto;
     width: 55%;
-    padding: 0 0 15vh;
+    padding: 0 0 15vh 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
-#question-main {
-    margin: auto;
-    width: 55%;
-    padding: 0 0 15vh;
-    text-align: center;
+main h1, p {
+    padding-bottom: 3vh;
 }
 
-#feedback-main {
+.section {
+    padding-bottom: 25px;
+}
+
+#questions, #feedback {
+    visibility: hidden;
+}
+
+#response-div {
+    display: flex;
+    flex-direction: column;
     margin: auto;
-    width: 55%;
-    padding: 0 0 15vh;
-    text-align: center;
+    width: 25%;
+}
+
+.response-btn {
+    width: 15vw;
+    height: 2.5vw;
+}
+
+#question-feedback {
+    float: left;
+    margin-top: 3vh;
+    width: 15vw;
+    height: 2.5vw;
+
+}
+
+form {
+    margin-top: 3vh;
+    float: left;
+}
+
+label {
+    display: inline;
+    padding-right: 5px;
+}
+
+#score-label {
+    position: absolute;
+    left: 32.3vw;
+}
+
+#score {
+    position: relative;
+    left: 8.5vw;
 }
 
 #highscores-main {
@@ -56,30 +96,6 @@ header {
     padding: 0 0 15vh;
     text-align: center;
 }
-
-
-main h1, p {
-    padding-bottom: 3vh;
-}
-
-#question-feedback {
-    float: left;
-    margin-top: 3vh;
-}
-
-form {
-    float: left;
-    margin-top: 3vh;
-}
-
-label {
-    display: inline-block;
-    padding-right: 10px;
-    width: 40vh;
-    text-align: right;
-}
-
-
 
 #high-score-button {
     float: left;

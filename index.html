@@ -16,10 +16,38 @@
             <p id="timer-p">Time: <span id="timer">60</span></p>
         </div>
     </header>
-    <main id="landing-main">
-        <h1>Coding Quiz Challenge</h1>
-        <p>Welcome to the quiz! Press start to begin. You will initially have 60 minutes to complete # questions. You will lose 5 mins for each incorrect answer. The quiz will end when once you've completed all questions or once time runs out. You may record your initials after the test to record your score in high-scores. Good luck!</p>
-        <button type="button" name="start">Start the Quiz</button>
+    <main id="main">
+    <section  class="section" id="welcome">
+            <h1 class="primary-h1">Coding Quiz Challenge</h1>
+            <p class="instructions">Welcome to the quiz! Press start to begin. You will initially have 60 minutes to complete # questions. You will lose 5 mins for each incorrect answer. The quiz will end when once you've completed all questions or once time runs out. You may record your initials after the test to record your score in high-scores. Good luck!</p>
+            <button id="start-btn" type="button" name="start">Start the Quiz</button>
+    </section>
+    <section class="section" id="questions">
+        <h1 id="question-h1">Question 1</h1>
+        <div id="response-div">
+            <hr />
+            <!-- <button onclick="getResponse(1);" class="response-btn" id="resp1-btn" type="button" name="resp1"></button> -->
+            <button class="response-btn" id="resp1-btn" type="button" name="resp1"></button>
+            <button class="response-btn" id="resp2-btn" type="button" name="resp2"></button>
+            <button class="response-btn" id="resp3-btn" type="button" name="resp3"></button>
+            <button class="response-btn" id="resp4-btn" type="button" name="resp4"></button>
+            <input type="text" id="question-feedback" name="qFeedback">
+        </div>
+    </section>
+    <section  class="section" id="feedback">
+        <h1>Your Results</h1>
+        <div id="feedback-div">
+            <hr />
+            <form>
+                <label id="score-label" for="score">Score:</label>
+                <input type="text" id="score" name="score"><br />
+                <label id="init-label" for="init">Enter your initials:</label>
+                <input type="text" id="init" name="init"><br />
+                <button id="high-score-button" type="button" name="high-score-button">See High Scores</button>
+            </form>
+        </div>
+    </section>
     </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
