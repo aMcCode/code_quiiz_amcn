@@ -18,15 +18,35 @@ html {
 
 body {
     height: 100%;   
-    overflow: hidden;  
-    margin: 0px; 
+    /* overflow: hidden;   */
+    margin: auto; 
     font-family: Helvetica, Arial, sans-serif;
+    max-width: 500px;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     padding: 10vh 10vh 15vh 10vh;
+}
+
+h1 {
+    margin-bottom: 4vh;
+}
+
+#response-div hr {
+    top: 40%
+}
+
+hr {
+    position: static;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+p {
+    padding-bottom: 5vh;
 }
 
 #main {
@@ -36,14 +56,12 @@ header {
     text-align: center;
     display: flex;
     flex-direction: column;
-}
-
-main h1, p {
-    padding-bottom: 3vh;
+    max-width: 300px;
 }
 
 .section {
     padding-bottom: 25px;
+    max-width: 300px;
 }
 
 #questions, #feedback {
@@ -54,20 +72,22 @@ main h1, p {
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 25%;
+    max-width: 300px;
 }
 
 .response-btn {
-    width: 15vw;
-    height: 2.5vw;
+    position: relative;
+    width: 200px;
+    height: 50px;
+    border-radius: 8px;
+    left: 12%
 }
 
 #question-feedback {
     float: left;
     margin-top: 3vh;
-    width: 15vw;
-    height: 2.5vw;
-
+    width: 200px;
+    height: 35px;
 }
 
 form {
@@ -101,8 +121,3 @@ label {
     float: left;
     margin: 2vh 0 0 7vh;
 }
-
-
-
-
-

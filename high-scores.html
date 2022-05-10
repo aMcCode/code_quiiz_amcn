@@ -12,10 +12,19 @@
         <h1>High Scores</h1>
         <div id="highscores-div">
             <hr />
-        <form>
-            <button id="startover-button" type="button" name="startover-button">Back to Start</button>
-        </form>
+        <section id="highscores-sect">
+            <!-- <button id="startover-button" type="button" name="startover-button">Back to Start</button> -->
+        </section>
     </div>
     </main>
+    <!-- GET LOAD RESPONSES FROM THE OTHER JS FILE AND LOOP THROUGH IT. 
+        THIS NEEDS TO BE A SEPARATE JS FILE. -->
+    <script type="text/javascript">
+        window.onload = () => {
+            const p = document.createElement('p');
+        p.innerHTML = 'Lorem ipsum';
+        document.body.appendChild(p);
+        }
+    </script>
 </body>
 </html>

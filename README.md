@@ -17,3 +17,6 @@ THEN the game is over
 THEN I can save my initials and score
 #
 ![Alt text](assets/images/animated_example.gif?raw=true "Animated Readme")
+
+credits:
+https://stackoverflow.com/questions/65915371/how-do-i-make-the-program-wait-for-a-button-click-to-go-to-the-next-loop-iterati
