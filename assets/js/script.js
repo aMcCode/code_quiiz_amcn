@@ -66,7 +66,6 @@ var saveResponses = function() {
     localStorage.setItem("userResponses", JSON.stringify(userResponses));
 };
 
-
 // #region await
 var waitForResolve;
 function awaitResponse() {
@@ -163,20 +162,6 @@ async function getSaveAnswers() {
     openScoresWindow();
 }
 
-// MOVE TO NEW JS FILE ATTACHED TO HS
-var loadResponses = function() {
-    var savedResponses = localStorage.getItem("userResponses");
-    // if there are no responses, set responses to an empty array and return out of the function
-    if (!savedResponses) {
-      return false;
-    }
-
-    console.log("Saved responses found!");
-    // else, load up saved responses
-  
-    // parse into array of objects
-    return JSON.parse(savedResponses);
-};
   
 var openScoresWindow = function () {
     window.open("high-scores.html", '_blank', 'noreferrer');
