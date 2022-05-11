@@ -1,54 +1,68 @@
 
 window.onload = () => {
 
-    // var responses = function() {
-    //     var savedResponses = localStorage.getItem("userResponses");
-    //     // if there are no responses, set responses to an empty array and return out of the function
-    //     if (!savedResponses) {
-    //         return false;
-    //     }
-
-    //     alert("Saved responses found!");
-    //     // else, load up saved responses
-
-    //     // parse into array of objects
-    //     return JSON.parse(savedResponses);
-    // };
+    var savedResponses = localStorage.getItem("userResponses");
+    if (!savedResponses)
+        return false;
+    else savedResponses = JSON.parse(savedResponses);
 
     var doc = window.document;
-    alert(doc);
 
     var highScoreMain = doc.body.querySelector("#highscores-main");
-    console.log(highScoreMain);
 
-    var highScoreSect = highScoreMain.querySelector("#highscores-sect");
-    console.log(highScoreSect);
+    var createScoreRec = function(question, response, answer, isCorrect) {
 
+        var rowDiv = doc.createElement("div");
+            rowDiv.className = "row-wrapper";
+
+        highScoreMain.appendChild(rowDiv);
+
+        var statusIndicator = doc.createElement("div");
+            statusIndicator.className = "highScoreInput";
+            statusIndicator.id = "questInput";
+            if(isCorrect)
+                statusIndicator.innerHTML = "<h3 class=check> &#x2713; </h3>";
+            else statusIndicator.innerHTML = "<h3 class=check> X </h3>";
+            rowDiv.appendChild(statusIndicator);
 
         var questTxt = doc.createElement("input");
-        questTxt.setAttribute("type", "text");
-        questTxt.value = "qtxt";
-        questTxt.readOnly = true;
-        highScoreSect.appendChild(questTxt);
+            questTxt.setAttribute("type", "text");
+            questTxt.className = "highScoreInput";
+            questTxt.id = "questInput";
+            questTxt.value = question;
+            questTxt.readOnly = true;
+            rowDiv.appendChild(questTxt);
 
-        console.log(questTxt);
+        var userRspTxt = doc.createElement("input");
+            userRspTxt.setAttribute("type", "text");
+            userRspTxt.className = "highScoreInput";
+            userRspTxt.id = "userRspInput";
+            userRspTxt.value = response;
+            userRspTxt.readOnly = true;
+            rowDiv.appendChild(userRspTxt);
 
-        // var respTxt = document.createElement("input");
-        // respTxt.setAttribute("type", "text");
-        // respTxt.value = resp;
-        // respTxt.readOnly = true;
+        var correctRspTxt = doc.createElement("input");
+            correctRspTxt.setAttribute("type", "text");
+            correctRspTxt.className = "highScoreInput";
+            correctRspTxt.id = "correctRspInput";
+            correctRspTxt.value = answer;
+            correctRspTxt.readOnly = true;
+            rowDiv.appendChild(correctRspTxt);
 
-        // var answTxt = document.createElement("input");
-        // answTxt.setAttribute("type", "text");
-        // answTxt.value = answer;
-        // answTxt.readOnly = true;
     }
 
+    for (var i = 0; i < savedResponses.length; i++)
+    {
+        qtxt = savedResponses[i].quest;
+        resp = savedResponses[i].resp;
+        answer = savedResponses[i].ans;
+        isCorrect = savedResponses[i].resl;
+
+        createScoreRec(qtxt, resp, answer, isCorrect);
+        // console.log(`${qtxt}: ${resp}: ${answer}: ${isCorrect}`)
+    }
+
+}
 
 
-        // for (var i = 0; i < responses.length; i++)
-        // {
-        //     qtxt = responses[i].quest;
-        //     createScoreRecord(qtxt, "", "");
-        // }
 

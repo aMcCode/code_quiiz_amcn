@@ -2,6 +2,7 @@ var startBtn = document.querySelector("#start-btn");
 var time = 60;
 var welcome_section = document.querySelector("#welcome");
 var question_section = document.getElementById("questions");
+var feedback_section = document.getElementById("feedback");
 var question_h1 = document.getElementById("question-h1");
 var possible_answers_div = document.getElementById("possible_answers");
 var response_btn1 = document.getElementById("resp1-btn");
@@ -9,6 +10,7 @@ var response_btn2 = document.getElementById("resp2-btn");
 var response_btn3 = document.getElementById("resp3-btn");
 var response_btn4 = document.getElementById("resp4-btn");
 var response1, response2, response3, response4;
+var highScoresBtn = document.querySelector("#high-score-button");
 
 var questions = [
     {
@@ -73,35 +75,41 @@ function awaitResponse() {
 }
 
 function respBtn1Resolver() {
-    response1 = "1";
     if (waitForResolve) waitForResolve();
+    response1 = "1";
+
+
 }
 
 function respBtn2Resolver() {
     if (waitForResolve) waitForResolve();
     response2 = "2";
+
+
 }
 
 function respBtn3Resolver() {
-    response3 = "3";
     if (waitForResolve) waitForResolve();
+    response3 = "3";
+
 }
 
 function respBtn4Resolver() {
-    response4 = "4";
     if (waitForResolve) waitForResolve();
+    response4 = "4";
+
 }
 // #endregion
 
-async function getSaveAnswers() {
-    // EXPERIMENT WITH MOVING LISTENER CREATION IN THE 4 LOOP SINCE IT LOOKS LIKE WE NEED TO RESET WITH EVERY 4 LOOPS.
+async function getAnswers_ReportScores() {
     response_btn1.addEventListener('click', respBtn1Resolver);
     response_btn2.addEventListener('click', respBtn2Resolver);
     response_btn3.addEventListener('click', respBtn3Resolver);
     response_btn4.addEventListener('click', respBtn4Resolver);    
 
     for (var i = 0; i < questions.length; i++) {
-        var response = undefined;
+    
+        var response;
         var question = questions[i].question;
         var responses = questions[i].possible_reponses;
         var answer = questions[i].correct_response;
@@ -120,17 +128,28 @@ async function getSaveAnswers() {
 
         await awaitResponse();
 
+        console.log(response1 + response2 + response3 + response4);
+
         if (response1 == "1")
+        {
             response = response1;
-
+            response1 = "-1";
+        }
         if (response2 == "2")
+        {
             response = response2;
-
+            response2 = "-1";
+        }
         if (response3 == "3")
+        {
             response = response3;
-
+            response3 = "-1";
+        }
         if (response4 == "4")
+        {
             response = response4;
+            response4 = "-1";
+        }
 
         if(response != undefined) {
             if(response == answer)
@@ -159,13 +178,23 @@ async function getSaveAnswers() {
     response_btn3.removeEventListener('click', respBtn3Resolver);
     response_btn4.removeEventListener('click', respBtn4Resolver);
 
-    openScoresWindow();
-}
+    manage_element_visi([question_section], true);
+    manage_element_visi([feedback_section], false);
 
+    //display current results on the fedback page
+    //calculate scores and print to high scores
+    //build return to start and clear highscores options
+    highScoresBtn.addEventListener("click", openScoresWindow);
+
+    
+
+}
   
 var openScoresWindow = function () {
     window.open("high-scores.html", '_blank', 'noreferrer');
 }
+
+ /* Primary execution starts here */
 
 var start_function = function () {
 
@@ -174,8 +203,7 @@ var start_function = function () {
     manage_element_visi([welcome_section], true);
     manage_element_visi([question_section], false);
 
-    getSaveAnswers();  
-
+    getAnswers_ReportScores();  
 }
 
 startBtn.addEventListener("click", start_function);
