@@ -10,7 +10,9 @@ var response_btn2 = document.getElementById("resp2-btn");
 var response_btn3 = document.getElementById("resp3-btn");
 var response_btn4 = document.getElementById("resp4-btn");
 var response1, response2, response3, response4;
+var score = 0;
 var highScoresBtn = document.querySelector("#high-score-button");
+var startOverBtn = document.querySelector("#startover-button");
 
 var questions = [
     {
@@ -42,6 +44,8 @@ var questions = [
 
 var userResponses = [];
 
+var userScores = [];
+
 var startTimer = function () {
 
     setInterval(function () {
@@ -50,7 +54,7 @@ var startTimer = function () {
         var updatedTime = curTimeNum - 1;
         document.getElementById("timer").innerText = updatedTime.toString();
     }, 1000);
-}
+};
 
 var manage_element_visi = function (element_list, doHide) {
     for (var i = 0; i < element_list.length; i++) {
@@ -62,11 +66,66 @@ var manage_element_visi = function (element_list, doHide) {
         else
             elem.style.visibility = 'visible';
     }
-}
-
-var saveResponses = function() {
-    localStorage.setItem("userResponses", JSON.stringify(userResponses));
 };
+
+var calcAndSaveScore = function() {
+    var correctCount = 0;
+    for(var i = 0; i < userResponses.length; i++)
+    {   
+        if(userResponses[i].resl === true)
+            correctCount++;
+    };
+
+    /* only 10 questions */
+    score = correctCount * 10;
+
+    var score_input = document.querySelector("#score");
+        score_input.value = score;
+        score_input.readOnly = true;
+};
+
+var getInit_StoreScore = function() {    
+    var storedScoreCount;
+
+    var storedScores = JSON.parse(localStorage.getItem("userScores"));
+    if(storedScores) {
+        storedScoreCount = storedScores.length + 1;
+
+        for (var i = 0; i < storedScores.length; i++)
+            userScores.push(storedScores[i]);
+    }
+    else storedScoreCount = 1;
+
+    var initials_input = document.querySelector("#init");
+    var initials = initials_input.value;
+
+    var userScoreObj = {
+        scoreNum: storedScoreCount,
+        init: initials,
+        score: score
+    };
+
+    userScores.push(userScoreObj);
+    console.log(userScores);
+    
+    localStorage.setItem("userScores", JSON.stringify(userScores));
+
+};
+
+var getInit_OpenScoresWindow = function () {
+
+    getInit_StoreScore();
+    // window.open("high-scores.html", '_blank', 'noreferrer');
+    location.href = "./high-scores.html";
+};
+
+var getInit_StartOver = function () {
+
+    getInit_StoreScore();
+    // window.open("high-scores.html", '_blank', 'noreferrer');
+    location.href = "./index.html";
+};
+
 
 // #region await
 var waitForResolve;
@@ -105,17 +164,17 @@ async function getAnswers_ReportScores() {
     response_btn1.addEventListener('click', respBtn1Resolver);
     response_btn2.addEventListener('click', respBtn2Resolver);
     response_btn3.addEventListener('click', respBtn3Resolver);
-    response_btn4.addEventListener('click', respBtn4Resolver);    
+    response_btn4.addEventListener('click', respBtn4Resolver);
 
     for (var i = 0; i < questions.length; i++) {
-    
+
         var response;
         var question = questions[i].question;
         var responses = questions[i].possible_reponses;
         var answer = questions[i].correct_response;
 
         question_h1.innerHTML = question;
-        for(var r in responses) {
+        for (var r in responses) {
             if (r === "1")
                 response_btn1.textContent = responses[r];
             if (r === "2")
@@ -128,73 +187,54 @@ async function getAnswers_ReportScores() {
 
         await awaitResponse();
 
-        console.log(response1 + response2 + response3 + response4);
+        // console.log(response1 + response2 + response3 + response4);
 
-        if (response1 == "1")
-        {
+        if (response1 == "1") {
             response = response1;
             response1 = "-1";
         }
-        if (response2 == "2")
-        {
+        if (response2 == "2") {
             response = response2;
             response2 = "-1";
         }
-        if (response3 == "3")
-        {
+        if (response3 == "3") {
             response = response3;
             response3 = "-1";
         }
-        if (response4 == "4")
-        {
+        if (response4 == "4") {
             response = response4;
             response4 = "-1";
         }
 
-        if(response != undefined) {
-            if(response == answer)
-                console.log('Correct!');
-            else console.log('Incorrect.');
-
-            console.log(`${i}: ${question}: ${response}: ${answer}`)
+        if (response != undefined) {
 
             var userRespObj = {
                 quest: question,
                 resp: response,
-                ans:  answer,
+                ans: answer,
                 resl: response == answer
             };
 
             userResponses.push(userRespObj);
-            
-            saveResponses();
 
-            continue;
-        }     
-    }
+        }
+    };
 
     response_btn1.removeEventListener('click', respBtn1Resolver);
     response_btn2.removeEventListener('click', respBtn2Resolver);
     response_btn3.removeEventListener('click', respBtn3Resolver);
     response_btn4.removeEventListener('click', respBtn4Resolver);
+    
 
     manage_element_visi([question_section], true);
     manage_element_visi([feedback_section], false);
 
-    //display current results on the fedback page
-    //calculate scores and print to high scores
-    //build return to start and clear highscores options
-    highScoresBtn.addEventListener("click", openScoresWindow);
+    //calculate score, save to storage and print to high scores
+    calcAndSaveScore();
 
-    
-
-}
-  
-var openScoresWindow = function () {
-    window.open("high-scores.html", '_blank', 'noreferrer');
-}
-
- /* Primary execution starts here */
+    highScoresBtn.addEventListener("click", getInit_OpenScoresWindow);
+    startOverBtn.addEventListener("click", getInit_StartOver);
+};
 
 var start_function = function () {
 
@@ -203,9 +243,11 @@ var start_function = function () {
     manage_element_visi([welcome_section], true);
     manage_element_visi([question_section], false);
 
-    getAnswers_ReportScores();  
-}
+    getAnswers_ReportScores();
+
+};
 
 startBtn.addEventListener("click", start_function);
+
 
 

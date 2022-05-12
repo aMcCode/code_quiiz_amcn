@@ -34,16 +34,26 @@
             <input type="text" id="question-feedback" name="qFeedback">
         </div>
     </section>
-    <section  class="section" id="feedback">
-        <h1>Your Results</h1>
-        <div id="feedback-div">
+    <section  class="section" id="feedback"> 
+        <div id="results-div">
+            <h1 id="results-h1">Your Results</h1>
             <hr />
+            <!-- <div id="row-wrapper">
+                    <h3>??</h3>
+                    <input type="text" name="question" value="Question">
+                    <input type="text" name="response" value="Your Response">
+                    <input type="text" name="correct" value="Correct Response">
+                </div>               
+            </div> -->
+        </div>
+        <div id="acknowledge-div">
             <form>
                 <label id="score-label" for="score">Score:</label>
                 <input type="text" id="score" name="score"><br />
                 <label id="init-label" for="init">Enter your initials:</label>
                 <input type="text" id="init" name="init"><br />
                 <button id="high-score-button" type="button" name="high-score-button">See High Scores</button>
+                <button id="startover-button" type="button" name="startover-button">Back to Start</button>
             </form>
         </div>
     </section>
