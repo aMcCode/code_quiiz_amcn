@@ -1,112 +1,63 @@
 
-window.onload = () => {
+var savedScores = localStorage.getItem("userScores_sorted");
 
+if (savedScores)
+    savedScores = JSON.parse(savedScores);
 
-    var saveResponses = function () {
-        localStorage.setItem("userResponses", JSON.stringify(userResponses));
-    };
-    
-    var savedResponses = localStorage.getItem("userResponses");
-    if (!savedResponses)
-        return false;
-    else savedResponses = JSON.parse(savedResponses);
+var highScoreMain = document.querySelector("#highscores-main");
 
-    var doc = window.document;
+var createScoreRec = function(rank, initials, score) {
 
-    var highScoreMain = doc.body.querySelector("#highscores-main");
+    var rowDiv = document.createElement("div");
+        rowDiv.className = "row-wrapper";
 
-    var createScoreRec = function(question, response, answer, isCorrect) {
+    highScoreMain.appendChild(rowDiv);
 
-        var rowDiv = doc.createElement("div");
-            rowDiv.className = "row-wrapper";
+    var rankTxt = document.createElement("input");
+        rankTxt.setAttribute("type", "text");
+        rankTxt.className = "highScoreInput";
+        rankTxt.id = "rankInput";
+        rankTxt.value = rank;
+        rankTxt.readOnly = true;
+        rowDiv.appendChild(rankTxt);
 
-        highScoreMain.appendChild(rowDiv);
+    var initialsTxt = document.createElement("input");
+        initialsTxt.setAttribute("type", "text");
+        initialsTxt.className = "highScoreInput";
+        initialsTxt.id = "initInput";
+        initialsTxt.value = initials;
+        initialsTxt.readOnly = true;
+        rowDiv.appendChild(initialsTxt);
 
-        var statusIndicator = doc.createElement("div");
-            statusIndicator.className = "highScoreInput";
-            statusIndicator.id = "questInput";
-            if(isCorrect)
-                statusIndicator.innerHTML = "<h3 class=check> &#x2713; </h3>";
-            else statusIndicator.innerHTML = "<h3 class=check> X </h3>";
-            rowDiv.appendChild(statusIndicator);
-
-        var questTxt = doc.createElement("input");
-            questTxt.setAttribute("type", "text");
-            questTxt.className = "highScoreInput";
-            questTxt.id = "questInput";
-            questTxt.value = question;
-            questTxt.readOnly = true;
-            rowDiv.appendChild(questTxt);
-
-        var userRspTxt = doc.createElement("input");
-            userRspTxt.setAttribute("type", "text");
-            userRspTxt.className = "highScoreInput";
-            userRspTxt.id = "userRspInput";
-            userRspTxt.value = response;
-            userRspTxt.readOnly = true;
-            rowDiv.appendChild(userRspTxt);
-
-        var correctRspTxt = doc.createElement("input");
-            correctRspTxt.setAttribute("type", "text");
-            correctRspTxt.className = "highScoreInput";
-            correctRspTxt.id = "correctRspInput";
-            correctRspTxt.value = answer;
-            correctRspTxt.readOnly = true;
-            rowDiv.appendChild(correctRspTxt);
-
-    }
-
-    for (var i = 0; i < savedResponses.length; i++)
-    {
-        qtxt = savedResponses[i].quest;
-        resp = savedResponses[i].resp;
-        answer = savedResponses[i].ans;
-        isCorrect = savedResponses[i].resl;
-
-        createScoreRec(qtxt, resp, answer, isCorrect);
-        // console.log(`${qtxt}: ${resp}: ${answer}: ${isCorrect}`)
-    }
-
+    var scoreTxt = document.createElement("input");
+        scoreTxt.setAttribute("type", "text");
+        scoreTxt.className = "highScoreInput";
+        scoreTxt.id = "scoreInput";
+        scoreTxt.value = score;
+        scoreTxt.readOnly = true;
+        rowDiv.appendChild(scoreTxt);
 }
 
+for (var i = 0; i < savedScores.length; i++) {
+    rank = savedScores[i].scoreNum;
+    init = savedScores[i].init;
+    score = savedScores[i].score;
+
+    createScoreRec(rank, init, score);
+}
+
+var reStart = document.createElement("button");
+reStart.id = "restartBtn";
+reStart.innerText = "Back to Start";
+highScoreMain.appendChild(reStart);
 
 
-var rowDiv = doc.createElement("div");
-rowDiv.className = "row-wrapper";
+var reStart_function = function() {
+      location.href = "./index.html";
+}
 
-highScoreMain.appendChild(rowDiv);
+reStart.addEventListener("click", reStart_function);
 
-var statusIndicator = doc.createElement("div");
-statusIndicator.className = "highScoreInput";
-statusIndicator.id = "questInput";
-if(isCorrect)
-    statusIndicator.innerHTML = "<h3 class=check> &#x2713; </h3>";
-else statusIndicator.innerHTML = "<h3 class=check> X </h3>";
-rowDiv.appendChild(statusIndicator);
-
-var questTxt = doc.createElement("input");
-questTxt.setAttribute("type", "text");
-questTxt.className = "highScoreInput";
-questTxt.id = "questInput";
-questTxt.value = question;
-questTxt.readOnly = true;
-rowDiv.appendChild(questTxt);
-
-var userRspTxt = doc.createElement("input");
-userRspTxt.setAttribute("type", "text");
-userRspTxt.className = "highScoreInput";
-userRspTxt.id = "userRspInput";
-userRspTxt.value = response;
-userRspTxt.readOnly = true;
-rowDiv.appendChild(userRspTxt);
-
-var correctRspTxt = doc.createElement("input");
-correctRspTxt.setAttribute("type", "text");
-correctRspTxt.className = "highScoreInput";
-correctRspTxt.id = "correctRspInput";
-correctRspTxt.value = answer;
-correctRspTxt.readOnly = true;
-rowDiv.appendChild(correctRspTxt);
 
 
 

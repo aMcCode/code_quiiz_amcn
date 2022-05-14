@@ -29,6 +29,10 @@ header {
     padding: 5vh 5vh 0 5vh;
 }
 
+.header-div, p {
+    margin-bottom: 5vh;
+}
+
 h1 {
     margin-bottom: 4vh;
 }
@@ -42,10 +46,6 @@ hr {
     width: 100%;
     max-width: 300px;
     margin-bottom: 15px;
-}
-
-p {
-    padding-bottom: 5vh;
 }
 
 #main {

@@ -20,3 +20,7 @@ THEN I can save my initials and score
 
 credits:
 https://stackoverflow.com/questions/65915371/how-do-i-make-the-program-wait-for-a-button-click-to-go-to-the-next-loop-iterati
+
+https://stackoverflow.com/questions/16623852/how-to-pause-javascript-code-execution-for-2-seconds
+
+https://stackoverflow.com/questions/979256/sorting-an-array-of-objects-by-property-values
