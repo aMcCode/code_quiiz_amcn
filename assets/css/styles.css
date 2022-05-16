@@ -4,13 +4,14 @@
     box-sizing: border-box;
 }
 
-/* :root {
-    --primary-color: hsla(11, 70%, 38%, 1);
-    --secondary-color: hsla(7, 97%, 86%, 1);
-    --tertiary-color: #39a6b2;
-    --filler-color:hsla(60, 60%, 99%, 1);
-    --olive: hsla(62, 59%, 30%, 1);
-} */
+:root {
+    --prim-bkgrnd: rgba(231,113,125,1);
+    --sec-bkgrnd: rgba(251,238,193,1);
+
+    --primary-color: hsla(11, 70%, 38%, .5);
+    --primary-color-full: hsla(11, 70%, 38%, 1);
+
+}
 
 html {
     height: 100%;
@@ -21,11 +22,15 @@ body {
     margin: auto; 
     font-family: Helvetica, Arial, sans-serif;
     max-width: 500px;
+    background: linear-gradient(15deg, var(--prim-bkgrnd) 0%, var(--sec-bkgrnd) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding: 5vh 5vh 0 5vh;
 }
 
@@ -33,8 +38,59 @@ header {
     margin-bottom: 5vh;
 }
 
+a {
+    font-weight: bold;
+    color: black;
+}
+
+a:hover {
+    color: var(--primary-color-full);
+}
+
+#timer-p {
+    font-weight: bold;
+}
+
+#timer {
+    font-weight: 100;
+}
+
+
 h1 {
     margin-bottom: 4vh;
+    font-weight: bold;
+}
+
+.button {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  border-style: none;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  padding: 10px 16px;
+}
+
+.button:hover,
+.button:focus {
+    background: var(--primary-color-full);
+}
+
+.response-btn {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  border-style: solid;
+  border-width: .25px;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  padding: 10px 16px;
+}
+
+.response-btn:hover {
+    background: #fbeec1;
 }
 
 #response-div hr {

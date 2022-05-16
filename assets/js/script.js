@@ -14,58 +14,60 @@ var response1, response2, response3, response4;
 var score = 0;
 var highScoresBtn = document.querySelector("#high-score-button");
 var startOverBtn = document.querySelector("#startover-button");
+var score_input = document.querySelector("#score");
+var initials_input = document.querySelector("#init");
 
 var questions = [
   {
-    question: "Question 1 Text",
+    question: "1: What type of variable is declared, but not given a value?",
     possible_reponses: {
-      1: "Answer 1",
-      2: "Answer 2",
-      3: "Answer 3",
-      4: "Answer 4",
+      1: "A: Object",
+      2: "B: Undeclared",
+      3: "C: Undefined",
+      4: "D: Empty"
     },
-    correct_response: 1,
+    correct_response: 3
   },
   {
-    question: "Question 2 Text",
+    question: "2: Which operator is used to assign value to a variable?",
     possible_reponses: {
-      1: "Answer 1",
-      2: "Answer 2",
-      3: "Answer 3",
-      4: "Answer 4",
+      1: "A: <",
+      2: "B: =",
+      3: "C: ===",
+      4: "D: =="
     },
-    correct_response: 2,
+    correct_response: 2
   },
   {
-    question: "Question 3 Text",
+    question: "3: What is the correct syntax for adding to local storage?",
     possible_reponses: {
-      1: "Answer 1",
-      2: "Answer 2",
-      3: "Answer 3",
-      4: "Answer 4",
+      1: "A: localStorage\n.setItem(<objectName>)",
+      2: "B: localStorage\n.SetItem(<objectName>)",
+      3: "C: localStorage\n.getItem(<objectName>)",
+      4: "D: localStorage\n.GetItem(<objectName>)"
     },
-    correct_response: 3,
+    correct_response: 1
   },
   {
-    question: "Question 4 Text",
+    question: "4: Which of the following values is falsey?",
     possible_reponses: {
-      1: "Answer 1",
-      2: "Answer 2",
-      3: "Answer 3",
-      4: "Answer 4",
+      1: "A: 0",
+      2: "B: NaN",
+      3: "C: undefined",
+      4: "D: All of the Above"
     },
-    correct_response: 4,
+    correct_response: 4
   },
   {
-    question: "Question 5 Text",
+    question: "5: Which of the following is NOT true about anonymous functions?",
     possible_reponses: {
-      1: "Answer 1",
-      2: "Answer 2",
-      3: "Answer 3",
-      4: "Answer 4",
+      1: "A: Have no name",
+      2: "B: Can't be assigned to variables",
+      3: "C: Can't be called from other functions",
+      4: "D: Can't be arguments"
     },
-    correct_response: 4,
-  },
+    correct_response: 4
+  }
 ];
 
 var userResponses = [];
@@ -77,7 +79,10 @@ var startTimer = function () {
     var curTime = document.getElementById("timer").innerText;
     var curTimeNum = !isNaN(curTime) ? Number(curTime) : 0;
     var updatedTime = curTimeNum - subtractTime;
-    document.getElementById("timer").innerText = updatedTime.toString();
+    if(updatedTime <= 0)
+        document.getElementById("timer").innerText = "Out of Time";
+    else
+        document.getElementById("timer").innerText = updatedTime.toString();
   }, 1000);
 };
 
@@ -86,7 +91,10 @@ var manage_element_visi = function (element_list, doHide) {
     elem = element_list[i];
 
     if (doHide) elem.hidden = true;
-    else elem.style.visibility = "visible";
+    else {
+        elem.hidden = false;
+        elem.style.visibility = "visible";
+    }
   }
 };
 
@@ -102,10 +110,9 @@ var calcAndSaveScore = function () {
   for (var i = 0; i < userResponses.length; i++)
     if (userResponses[i].resl === true) correctCount++;
 
-  /* only 10 questions */
-  score = correctCount * 10;
+  /* only 5 questions */
+  score = correctCount * 20;
 
-  var score_input = document.querySelector("#score");
   score_input.value = score;
   score_input.readOnly = true;
 };
@@ -125,21 +132,19 @@ var getInit_StoreScore = function () {
        storedScoreCount = 1;
   }
 
-  var initials_input = document.querySelector("#init");
+  
   var initials = initials_input.value;
 
   //NEED CODE TO FORCE USER TO ENTER INITIALS
 
   var userScoreObj = {
-    scoreNum: storedScoreCount,
     init: initials,
-    score: score,
+    score: score
   };
 
   userScores.push(userScoreObj);
 
   var userScores_sorted = userScores.sort((a,b) => parseInt(b.score) - parseInt(a.score))
-  console.log(userScores_sorted);
 
   localStorage.setItem("userScores_sorted", JSON.stringify(userScores_sorted));
 };
@@ -193,11 +198,9 @@ async function getAnswers_ReportScores() {
     
     var time = document.getElementById("timer").innerText;
     var timeNum = !isNaN(time) ? Number(time) : 0;
-    if(time <= 0)
-        {   
-            alert("You didn't complete the test in time. Please try again.")
-            break;
-        }
+
+    if(timeNum <= 0) 
+        break;
 
     var response;
     var question = questions[i].question;
@@ -244,6 +247,7 @@ async function getAnswers_ReportScores() {
     subtractTime = 1;
 
     var feedback_input = document.getElementById("question-feedback");
+        feedback_input.readOnly = true;
     
     feedback_input.value = feedback;
 
@@ -260,6 +264,11 @@ async function getAnswers_ReportScores() {
 
       userResponses.push(userRespObj);
     }
+    
+    if(i + 1 === questions.length) {
+        subtractTime = 0;
+    }
+    
   }
 
   response_btn1.removeEventListener("click", respBtn1Resolver);
@@ -269,10 +278,10 @@ async function getAnswers_ReportScores() {
 
   var hold = await pause(40);
 
+  manage_element_visi([welcome_section], true);
   manage_element_visi([question_section], true);
   manage_element_visi([feedback_section], false);
 
-  //calculate score, save to storage and print to high scores
   calcAndSaveScore();
 
   highScoresBtn.addEventListener("click", getInit_OpenScoresWindow);
@@ -280,6 +289,12 @@ async function getAnswers_ReportScores() {
 }
 
 var start_function = function () {
+  
+  var curTime_input = document.getElementById("timer");
+  if( Number(curTime_input.innerText) != 60) {
+    location.reload();    
+  }
+
   startTimer();
 
   manage_element_visi([welcome_section], true);

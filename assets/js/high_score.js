@@ -8,8 +8,42 @@ var highScoreMain = document.querySelector("#highscores-main");
 
 var createScoreRec = function(rank, initials, score) {
 
+    if (rank === 1) {
+    
+        var headerRowDiv = document.createElement("div");
+            headerRowDiv.className = "row-wrapper";
+            headerRowDiv.id = "header-row";
+        
+        highScoreMain.appendChild(headerRowDiv);
+
+        var rankHdr = document.createElement("input");
+            rankHdr.setAttribute("type", "text");
+            rankHdr.className = "highScoreHeaderInput";
+            rankHdr.id = "rankHeaderInput";
+            rankHdr.value = "Rank";
+            rankHdr.readOnly = true;
+            headerRowDiv.appendChild(rankHdr);
+
+        var initialsHdr = document.createElement("input");
+            initialsHdr.setAttribute("type", "text");
+            initialsHdr.className = "highScoreHeaderInput";
+            initialsHdr.id = "initHeaderInput";
+            initialsHdr.value = "Initials";
+            initialsHdr.readOnly = true;
+            headerRowDiv.appendChild(initialsHdr);
+
+        var scoreHdr = document.createElement("input");
+            scoreHdr.setAttribute("type", "text");
+            scoreHdr.className = "highScoreHeaderInput";
+            scoreHdr.id = "scoreHeaderInput";
+            scoreHdr.value = "Score";
+            scoreHdr.readOnly = true;
+            headerRowDiv.appendChild(scoreHdr);
+
+    }
+
     var rowDiv = document.createElement("div");
-        rowDiv.className = "row-wrapper";
+    rowDiv.className = "row-wrapper";
 
     highScoreMain.appendChild(rowDiv);
 
@@ -39,7 +73,7 @@ var createScoreRec = function(rank, initials, score) {
 }
 
 for (var i = 0; i < savedScores.length; i++) {
-    rank = savedScores[i].scoreNum;
+    rank = i+1;
     init = savedScores[i].init;
     score = savedScores[i].score;
 
